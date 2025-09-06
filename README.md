@@ -352,6 +352,5 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🔗 Related Projects
 
-- [pigpio](http://abyz.me.uk/rpi/pigpio/) - Alternative GPIO library
 - [gpiozero](https://gpiozero.readthedocs.io/) - Simple GPIO interface
 - [rt-tests](https://github.com/linux-test-project/ltp) - Real-time testing tools
