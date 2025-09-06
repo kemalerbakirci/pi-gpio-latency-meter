@@ -1,0 +1,14 @@
+[Unit]
+Description=GPIO Loopback Latency Meter (real backend)
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/pi-gpio-latency-meter
+ExecStart=/usr/bin/python3 /home/pi/pi-gpio-latency-meter/latency_meter.py --backend gpiod --out 18 --inn 23 --hz 50 --seconds 0 --csv /home/pi/pi-gpio-latency-meter/data/latency_stream.csv
+# --seconds 0 treated as "run indefinitely" if you later add streaming; current script will stop when time is up.
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

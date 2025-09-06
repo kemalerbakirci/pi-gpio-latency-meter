@@ -1,0 +1,49 @@
+[Unit]
+Description=GPIO Latency Meter Continuous Monitor
+Documentation=https://github.com/yourusername/pi-gpio-latency-meter
+After=multi-user.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=pi
+Group=gpio
+WorkingDirectory=/opt/pi-gpio-latency-meter
+ExecStart=/usr/bin/python3 /opt/pi-gpio-latency-meter/latency_meter.py \
+    --backend gpiod \
+    --out 18 \
+    --in 23 \
+    --hz 1 \
+    --seconds 0 \
+    --csv /var/log/gpio-latency/continuous.csv \
+    --rt
+
+# Restart settings
+Restart=always
+RestartSec=30
+StartLimitInterval=300
+StartLimitBurst=5
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/log/gpio-latency
+CapabilityBoundingSet=CAP_SYS_NICE CAP_IPC_LOCK
+
+# Resource limits
+LimitNOFILE=1024
+LimitNPROC=64
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=gpio-latency-meter
+
+# Environment
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONPATH=/opt/pi-gpio-latency-meter
+
+[Install]
+WantedBy=multi-user.target
