@@ -1,6 +1,5 @@
 [Unit]
 Description=GPIO Latency Meter Continuous Monitor
-Documentation=https://github.com/yourusername/pi-gpio-latency-meter
 After=multi-user.target
 Wants=network.target
 
